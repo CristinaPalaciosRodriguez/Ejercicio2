@@ -1,0 +1,142 @@
+﻿<Window x:Class="View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewmodel="clr-namespace:ViewModel;assembly=ViewModel"
+        xmlns:local="clr-namespace:View"
+        mc:Ignorable="d"
+        Icon="Images/logo_tesis1.ico"
+        Title="Registro" Height="450" Width="800">
+    <Window.DataContext>
+        <viewmodel:MainViewModel></viewmodel:MainViewModel>
+    </Window.DataContext>
+
+    <Grid Background="#F0F2FF">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="39*"></ColumnDefinition>
+            <ColumnDefinition Width="94*"/>
+            <ColumnDefinition Width="133*"></ColumnDefinition>
+            <ColumnDefinition Width="133*"></ColumnDefinition>
+            <ColumnDefinition Width="133*"></ColumnDefinition>
+            <ColumnDefinition Width="133*"></ColumnDefinition>
+            <ColumnDefinition Width="133*"></ColumnDefinition>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Content="Registro de alumnos" Grid.Column="3" VerticalAlignment="Center" Grid.ColumnSpan="2" HorizontalAlignment="Left"
+               FontWeight="Bold" FontSize="25" Margin="7,0,0,0"/>
+
+        <Image Grid.Column="0" Grid.Row="0" Source="Images/logo_tesis1.png" Grid.ColumnSpan="2"/>
+
+
+        <Label Content="Nombre" Grid.Row="1" Grid.Column="0" FontWeight="Bold"
+               HorizontalAlignment="Center" VerticalAlignment="Center"
+               FontSize="15" Grid.ColumnSpan="2"></Label>
+        <TextBox Text="{Binding Nombre}" Grid.Row="1" Grid.Column="2" Width="110"
+                 Margin="12,20,11,20" Background="LightGoldenrodYellow"></TextBox>
+
+        <Label Content="Apellidos" Grid.Row="1" Grid.Column="3" FontWeight="Bold"
+               HorizontalAlignment="Center" VerticalAlignment="Center" 
+               FontSize="15"></Label>
+        <TextBox Text="{Binding Apellidos}" Grid.Row="1" Grid.Column="4"  
+                 Width="110" Margin="12,20,11,20" Background="LightGoldenrodYellow"></TextBox>
+
+        <Label Content="Promedio" Grid.Row="1" Grid.Column="5" FontWeight="Bold"
+               HorizontalAlignment="Center" VerticalAlignment="Center" 
+               FontSize="15"></Label>
+        <TextBox Text="{Binding Promedio}" Grid.Row="1" Grid.Column="6" Width="110" 
+                 Margin="12,20,11,20" Background="LightGoldenrodYellow"></TextBox>
+
+        <Button Grid.Row="5" Grid.Column="2" Background="#5289E9"
+                Margin="10,20,10,20" Command="{Binding AgregarCommand}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="Images/agregar-usuario.png"/>
+                <Label Padding="0"  HorizontalContentAlignment="Center" HorizontalAlignment="Center"
+                       VerticalAlignment="Center" FontWeight="Bold">Agregar</Label>
+            </StackPanel>
+        </Button>
+
+        <Button  Grid.Row="5" Grid.Column="3" Background="#E9B752"
+                Margin="10,20,10,20" Command="{Binding ModificarCommand}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="Images/editar.png"/>
+                <Label Padding="0"  HorizontalContentAlignment="Center" HorizontalAlignment="Center"
+                       VerticalAlignment="Center" FontWeight="Bold">Modificar</Label>
+            </StackPanel>
+        </Button>
+
+        <Button Grid.Row="5" Grid.Column="4" Background="#E96952"
+                Margin="10,20,10,20" Command="{Binding EliminarCommand}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="Images/usuario.png"/>
+                <Label Padding="0"  HorizontalContentAlignment="Center" HorizontalAlignment="Center"
+                       VerticalAlignment="Center" FontWeight="Bold">Eliminar</Label>
+            </StackPanel>
+        </Button>
+
+        <Button Grid.Row="5" Grid.Column="5" Background="#52E9C9"
+                 Margin="10,20,10,20" Command="{Binding LimpiarCommand}">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="Images/limpiar.png"/>
+                <Label Padding="0" HorizontalContentAlignment="Center" HorizontalAlignment="Center"
+                       VerticalAlignment="Center" FontWeight="Bold">Limpiar</Label>
+            </StackPanel>
+        </Button>
+        <DataGrid
+            AlternationCount="2"
+            Grid.Row="1" Grid.Column="1"
+            Grid.ColumnSpan="5" Grid.RowSpan="4"
+            ItemsSource="{Binding Alumnos}"
+            SelectedItem="{Binding AlumnoSeleccionado}"
+            Background="#FFFEF7"
+            BorderBrush="Black" BorderThickness="2"
+            AutoGenerateColumns="False" FontWeight="Bold" Margin="93,69,0,0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nombre de Alumno" Binding="{Binding Nombre}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Apellidos" Binding="{Binding Apellidos}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Promedio" Binding="{Binding Promedio}"  Width="*"></DataGridTextColumn>
+            </DataGrid.Columns>
+
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                    <Setter Property="Background" Value="#FFD801"/>
+                    <Setter Property="Foreground" Value="#001649"/>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="LightGray" />
+                            <Setter Property="Foreground" Value="Black" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.CellStyle>
+
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Style.Triggers>
+                        <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                            <Setter Property="Background" Value="White" />
+                        </Trigger>
+                        <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                            <Setter Property="Background" Value="#FFFEF7" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
+
+        </DataGrid>
+    </Grid>
+</Window>
